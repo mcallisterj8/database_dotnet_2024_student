@@ -11,11 +11,11 @@ public class iPhone: Phone, ISmartphone {
     }
 
     public void BrowseInternet() {
-        int[] numbers = new int[3];
+        // int[] numbers = new int[3];
 
-        for(int i = 0; i <= numbers.Length; i++){
-            Console.WriteLine($"numbers[{i}] = {numbers[i]}");
-        }
+        // for(int i = 0; i <= numbers.Length; i++){
+        //     Console.WriteLine($"numbers[{i}] = {numbers[i]}");
+        // }
         Console.WriteLine($"Using {iPhone.Browser} to browse the internet.");
     }
 

@@ -1,25 +1,25 @@
 ﻿using InterfaceExamples.Models;
 using InterfaceExamples.Interfaces;
 
-iPhone phoneA = new iPhone {
-                    Brand = "Apple", 
-                    Model = "iPhone 11"
-                };
-Android phoneB = new Android {
-            Brand = "Google", 
-            Model = "Samsung Galaxy 23"
-        };
+// iPhone phoneA = new iPhone {
+//                     Brand = "Apple", 
+//                     Model = "iPhone 11"
+//                 };
+// Android phoneB = new Android {
+//             Brand = "Google", 
+//             Model = "Samsung Galaxy 23"
+//         };
 
-iPhone phoneC = new iPhone {
-            Brand = "Apple", 
-            Model = "iPhone 8"
-        };
-Android phoneD = new Android {
-            Brand = "Google", 
-            Model = "Samsung Galaxy 12"
-        };
+// iPhone phoneC = new iPhone {
+//             Brand = "Apple", 
+//             Model = "iPhone 8"
+//         };
+// Android phoneD = new Android {
+//             Brand = "Google", 
+//             Model = "Samsung Galaxy 12"
+//         };
 
-phoneA.BrowseInternet(); // iPhone
+// phoneA.BrowseInternet(); // iPhone
 // phoneB.BrowseInternet(); // Android
 
 // phoneA.UseAssistant("Check Weather"); // Valid command
@@ -37,8 +37,11 @@ ISmartphone phoneF = new Android {
                     };
 
 
-// phoneE.BrowseInternet();
-// phoneF.BrowseInternet();
+phoneE.BrowseInternet();
+phoneF.BrowseInternet();
+
+// phoneE.CallSteveJobs();
+
 
 // phoneE = new Android {
 //             Brand = "Google",
@@ -51,16 +54,16 @@ ISmartphone phoneF = new Android {
 /////////////////////////////////////
 
 
-List<ISmartphone> smartphones = new List<ISmartphone>{
-    phoneA,
-    phoneB,
-    phoneC,
-    phoneD
-};
+// List<ISmartphone> smartphones = new List<ISmartphone>{
+//     phoneA,
+//     phoneB,
+//     phoneC,
+//     phoneD
+// };
 
-foreach(ISmartphone phone in smartphones) {
-    phone.BrowseInternet();
-}
+// foreach(ISmartphone phone in smartphones) {
+//     phone.BrowseInternet();
+// }
 
 
 
