@@ -5,7 +5,13 @@ using SchoolSystem.Services;
 
 ServiceProvider _serviceProvider;
 
+/**
+    These are the variables we will use to call
+    methods from each of these datatypes (SeedingService,
+    DatabaseService, and BasicQueryService)
+*/
 SeedingService _seedingService;
+DatabaseService _dbService;
 BasicQueryService _basicQueryService;
 
 // This is the "container" we put the services in which
@@ -17,13 +23,20 @@ services.AddDbContext<ApplicationDbContext>();
 
 // Add seeding service to the service collection
 services.AddScoped<SeedingService>();
+services.AddScoped<DatabaseService>();
 services.AddScoped<BasicQueryService>();
 
 
 // Build the service collection
 _serviceProvider = services.BuildServiceProvider();
 
+/*
+    Retrieve instances of our service out of the
+    service collection (after it has been built from
+    the line above) for use.
+*/
 _seedingService = _serviceProvider.GetRequiredService<SeedingService>();
+_dbService = _serviceProvider.GetRequiredService<DatabaseService>();
 _basicQueryService = _serviceProvider.GetRequiredService<BasicQueryService>();
 
 // Seed the database
