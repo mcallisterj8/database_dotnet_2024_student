@@ -70,12 +70,13 @@ var instructorNames = _basicQueryService.GetAllInstructorNames();
 //     Console.WriteLine("============================");
 // }
 
-var courses = await _dbService.GetAllCourses();
+var courses = await _dbService.GetAllCoursesWithStudents();
 
 foreach(var course in courses) {
-    Console.WriteLine(course.Name);
-    Console.WriteLine($"InstructorId: {course.InstructorId}");
-    Console.WriteLine($"Instructor Name: {course.Instructor.LastName}");
+    Console.WriteLine(course.Name);    
+    foreach(var student in course.Students) {
+        Console.WriteLine($"Student Last Name: {student.LastName}");
+    }
 
     Console.WriteLine("=========================");
 }

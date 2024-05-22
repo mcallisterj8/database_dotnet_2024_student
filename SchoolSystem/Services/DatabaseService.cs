@@ -31,13 +31,15 @@ public class DatabaseService {
     }
 
     public async Task<List<Student>> GetAllStudentsWithCourses() {
-        // TODO: Retrieve all students and include their related courses, then return as a list.
-        throw new NotImplementedException();
+        return await _context.Students
+                        .Include(student => student.Courses)
+                        .ToListAsync();
     }
 
     public async Task<List<Course>> GetAllCoursesWithStudents() {
-        // TODO: Retrieve all courses and include their related students, then return as a list.
-        throw new NotImplementedException();
+        return await _context.Courses
+                        .Include(course => course.Students)                        
+                        .ToListAsync();
     }
 
     // Example: Get student by ID, with their courses
