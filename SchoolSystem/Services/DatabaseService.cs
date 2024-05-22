@@ -8,14 +8,26 @@ public class DatabaseService {
     private readonly ApplicationDbContext _context;
 
     // TODO: Use dependency injection to initialize the database context.
-    public DatabaseService() {
-
+    public DatabaseService(ApplicationDbContext context) {
+        _context = context;
     }
 
     // Example: Get all students
     public async Task<List<Student>> GetAllStudents() {
-        // TODO: Retrieve all students from the database and return as a list.
-        throw new NotImplementedException();
+        // select * from students;
+        // var students = await _context.Students.ToListAsync();
+
+        // return students;
+
+        return await _context.Students
+                        .Include(student => student.Courses)
+                        .ToListAsync();
+    }
+
+    public async Task<ICollection<Course>> GetAllCourses() {
+        return await _context.Courses
+                        .Include(course => course.Instructor)
+                        .ToListAsync();
     }
 
     public async Task<List<Student>> GetAllStudentsWithCourses() {
