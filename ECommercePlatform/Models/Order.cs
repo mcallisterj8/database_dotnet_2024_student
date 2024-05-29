@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcommercePlatform.Models;
+namespace ECommercePlatform.Models;
 
 public class Order {
     [Key]
