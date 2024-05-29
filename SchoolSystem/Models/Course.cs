@@ -12,6 +12,7 @@ public class Course {
     [ForeignKey("Instructor")]
     public int? InstructorId {get; set;}
     public virtual Instructor? Instructor { get; set;}
+
     [ForeignKey("Department")]
     public int? DepartmentId { get; set; }
     public virtual Department? Department { get; set; }
