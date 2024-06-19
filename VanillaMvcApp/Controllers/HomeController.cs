@@ -12,9 +12,17 @@ public class HomeController : Controller {
 
     }
 
+    [HttpGet("")]
     public IActionResult Index() {
-        var filePath = Path.Combine(_htmlFilePath, "index.html");
+        string filePath = Path.Combine(_htmlFilePath, "index.html");
         
+        return PhysicalFile(filePath, "text/html");
+    }
+
+    [HttpGet("about")]
+    public IActionResult About() {
+        string filePath = Path.Combine(_htmlFilePath, "about.html");
+
         return PhysicalFile(filePath, "text/html");
     }
 
