@@ -4,18 +4,18 @@ using VanillaMvcApp.Models;
 
 namespace VanillaMvcApp.Controllers;
 
-public class HomeController : Controller
-{
-    private readonly ILogger<HomeController> _logger;
+public class HomeController : Controller {
+    private readonly string _htmlFilePath = 
+                        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "html");
 
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
+    public HomeController() {
+
     }
 
-    public IActionResult Index()
-    {
-        return View();
+    public IActionResult Index() {
+        var filePath = Path.Combine(_htmlFilePath, "index.html");
+        
+        return PhysicalFile(filePath, "text/html");
     }
 
     public IActionResult Privacy()
