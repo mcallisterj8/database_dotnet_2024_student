@@ -1,16 +1,21 @@
 using VanillaMvcApp.Data;
 using VanillaMvcApp.Models;
 
-namespace VanillaMvcApp.Services {
-    public class SeedingService {
+namespace VanillaMvcApp.Services
+{
+    public class SeedingService
+    {
         private readonly ApplicationDbContext _context;
 
-        public SeedingService(ApplicationDbContext context) {
+        public SeedingService(ApplicationDbContext context)
+        {
             _context = context;
         }
 
-        public void CreateInstructor(string firstName, string lastName, DateTime joiningDate) {
-            var instructor = new Instructor {
+        public void CreateInstructor(string firstName, string lastName, DateTime joiningDate)
+        {
+            var instructor = new Instructor
+            {
                 FirstName = firstName,
                 LastName = lastName,
                 JoiningDate = joiningDate
@@ -18,8 +23,10 @@ namespace VanillaMvcApp.Services {
             _context.Instructors.Add(instructor);
         }
 
-        public void CreateStudent(string firstName, string lastName, DateTime joiningDate) {
-            var student = new Student {
+        public void CreateStudent(string firstName, string lastName, DateTime joiningDate)
+        {
+            var student = new Student
+            {
                 FirstName = firstName,
                 LastName = lastName,
                 JoiningDate = joiningDate
@@ -27,15 +34,19 @@ namespace VanillaMvcApp.Services {
             _context.Students.Add(student);
         }
 
-        public void CreateDepartment(string deptName) {
-            var department = new Department {
+        public void CreateDepartment(string deptName)
+        {
+            var department = new Department
+            {
                 Name = deptName
             };
             _context.Departments.Add(department);
         }
 
-        public void CreateCourse(string name, int instructorId, int departmentId) {
-            var course = new Course {
+        public void CreateCourse(string name, int instructorId, int departmentId)
+        {
+            var course = new Course
+            {
                 Name = name,
                 InstructorId = instructorId,
                 DepartmentId = departmentId
@@ -43,30 +54,35 @@ namespace VanillaMvcApp.Services {
             _context.Courses.Add(course);
         }
 
-        public void AddStudentToCourse(int studentId, int courseId) {
+        public void AddStudentToCourse(int studentId, int courseId)
+        {
             var student = _context.Students.Find(studentId);
             var course = _context.Courses.Find(courseId);
-            if (student != null && course != null) {
+            if (student != null && course != null)
+            {
                 course.Students.Add(student);
             }
         }
 
-        public void SeedDatabase() {
-            if (_context.Instructors.Any() || _context.Students.Any() || _context.Departments.Any() || _context.Courses.Any()) {
-                return; // Database has already been seeded
+        public async Task SeedDatabase()
+        {
+            if (_context.Instructors.Any() || _context.Students.Any() || _context.Departments.Any() || _context.Courses.Any())
+            {
+                // Database has already been seeded
+                return;
             }
 
             // Create Departments
             this.CreateDepartment("Computer Science");
             this.CreateDepartment("Mathematics");
             this.CreateDepartment("Physics");
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             // Create Instructors
             this.CreateInstructor("John", "Doe", new DateTime(2010, 5, 1));
             this.CreateInstructor("Jane", "Smith", new DateTime(2012, 7, 23));
             this.CreateInstructor("Alan", "Turing", new DateTime(2015, 3, 14));
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             // Get Department IDs
             var csDept = _context.Departments.First(d => d.Name == "Computer Science").Id;
@@ -87,13 +103,13 @@ namespace VanillaMvcApp.Services {
             this.CreateCourse("Calculus", instructorJane, mathDept);
             this.CreateCourse("Particle Physics", instructorAlan, physicsDept);
             this.CreateCourse("Quantum Mechanics", instructorAlan, physicsDept);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             // Create more students
             this.CreateStudent("Eve", "Larson", new DateTime(2019, 9, 1));
             this.CreateStudent("Dave", "Lee", new DateTime(2019, 9, 1));
             this.CreateStudent("Gina", "Wong", new DateTime(2019, 9, 1));
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             // Enroll students in various courses
             var allCourses = _context.Courses.ToList();
@@ -101,13 +117,15 @@ namespace VanillaMvcApp.Services {
 
             // Randomly enroll students in 3 to 7 courses
             Random rng = new Random();
-            foreach (var student in allStudents) {
+            foreach (var student in allStudents)
+            {
                 var shuffledCourses = allCourses.OrderBy(x => rng.Next()).Take(rng.Next(3, 8)).ToList();
-                foreach (var course in shuffledCourses) {
+                foreach (var course in shuffledCourses)
+                {
                     this.AddStudentToCourse(student.Id, course.Id);
                 }
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
