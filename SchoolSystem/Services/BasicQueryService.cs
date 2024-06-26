@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SchoolSystem.Services;
 
-public class BasicQueryService{
+public class BasicQueryService {
     private ApplicationDbContext _context;
 		
 		// TODO: Use dependency injection to initialize the database context.

@@ -8,7 +8,7 @@ namespace VanillaMvcApp.Controllers {
 
         // api/students
         [HttpGet("")]
-        public async Task<IActionResult> GetStudents() {
+        public async Task<IActionResult> GetStudents() {            
             return Ok(new {hello = "world!"});
         }
 
