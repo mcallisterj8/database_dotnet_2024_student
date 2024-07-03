@@ -8,5 +8,4 @@ public class Department {
     public int Id { get; set;}
     [Required]
     public required string Name { get; set;}
-    public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
 }
