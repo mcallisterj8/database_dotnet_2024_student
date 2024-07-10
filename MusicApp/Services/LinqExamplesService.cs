@@ -159,7 +159,16 @@ public class LinqExamplesService {
 
     // Get the names and track counts of the top 5 playlists with the most tracks.
     public async Task<List<object>> GetTopFivePlaylistsWithMostTracks() {
-        return null;
+        var result = await _context.Playlists
+            .OrderByDescending(playlist => playlist.Tracks.Count)
+            .Select(playlist => new {
+                PlaylistName = playlist.Name,
+                TrackCount = playlist.Tracks.Count
+            })
+            .Take(5)
+            .ToListAsync();
+
+        return result.Cast<object>().ToList();
     }
 
     // Get the names and track counts of the bottom 5 playlists with the least tracks.
