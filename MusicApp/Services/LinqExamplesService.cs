@@ -83,7 +83,15 @@ public class LinqExamplesService {
 
     // Get the names of all tracks along with their album title and artist name.
     public async Task<List<object>> GetTrackDetails() {
-        return null;
+        var trackDetails = await _context.Tracks
+            .Select(track => new {
+                TrackName = track.Title,
+                AlbumTitle = track.Album.Title,
+                ArtistName = track.Album.Artist.Name
+            })
+            .ToListAsync();
+
+            return trackDetails.Cast<object>().ToList();
     }
 
     // Get all albums along with the total duration of their tracks.

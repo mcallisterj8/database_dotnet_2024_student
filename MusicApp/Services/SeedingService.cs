@@ -16,6 +16,14 @@ public class SeedingService {
     }
 
     public async Task SeedDatabase() {
+        if(await _context.Artists.AnyAsync() && 
+            await _context.Genres.AnyAsync() &&
+            await _context.Albums.AnyAsync() &&
+            await _context.Tracks.AnyAsync() &&
+            await _context.Playlists.AnyAsync()) {
+                return; // Database already seeded.
+        }
+
         await CreateArtists();
         await CreateGenres();
         await CreateAlbums();
