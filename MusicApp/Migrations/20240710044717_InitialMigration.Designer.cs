@@ -11,7 +11,7 @@ using MusicApp.Data;
 namespace MusicApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240709014355_InitialMigration")]
+    [Migration("20240710044717_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -97,8 +97,8 @@ namespace MusicApp.Migrations
                     b.Property<int>("AlbumId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("DurationInSeconds")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("INTEGER");

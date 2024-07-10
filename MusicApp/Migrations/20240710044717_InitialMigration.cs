@@ -78,7 +78,7 @@ namespace MusicApp.Migrations
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    DurationInSeconds = table.Column<int>(type: "INTEGER", nullable: false),
                     AlbumId = table.Column<int>(type: "INTEGER", nullable: false),
                     GenreId = table.Column<int>(type: "INTEGER", nullable: false)
                 },

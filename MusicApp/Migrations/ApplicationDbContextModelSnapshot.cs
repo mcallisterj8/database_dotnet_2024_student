@@ -94,8 +94,8 @@ namespace MusicApp.Migrations
                     b.Property<int>("AlbumId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("DurationInSeconds")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("INTEGER");

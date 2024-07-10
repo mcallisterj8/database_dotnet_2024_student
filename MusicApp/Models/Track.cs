@@ -8,7 +8,7 @@ public class Track {
     public int id { get; set; }
     [Required]
     public required string Title { get; set; }
-    public TimeSpan Duration { get; set; }
+    public int DurationInSeconds { get; set; }
     [ForeignKey("Album")]
     public int AlbumId { get; set; }
     public virtual Album? Album { get; set; }

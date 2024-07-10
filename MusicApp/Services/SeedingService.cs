@@ -80,7 +80,7 @@ public class SeedingService {
                 var randomGenre = genres[_random.Next(genres.Count)];
                 tracks.Add(new Track {
                     Title = $"{album.Title} Track {i}",
-                    Duration = TimeSpan.FromMinutes(_random.Next(2, 6)),
+                    DurationInSeconds = _random.Next(120, 360),
                     Album = album,
                     Genre = randomGenre
                 });
@@ -114,3 +114,4 @@ public class SeedingService {
         await _context.SaveChangesAsync().ConfigureAwait(false);
     }
 }
+
