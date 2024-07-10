@@ -13,7 +13,9 @@ public class LinqExamplesService {
 
     // Get all artists along with their albums.
     public async Task<List<Artist>> GetAllArtistsWithAlbums() {
-        return null;
+        return await _context.Artists
+            .Include(artist => artist.Albums)
+            .ToListAsync();
     }
 
     // Get all albums along with their tracks.
@@ -46,11 +48,6 @@ public class LinqExamplesService {
         return null;
     }
 
-    // Get the total duration of tracks for each album.
-    public async Task<List<object>> GetTotalDurationByAlbum() {
-        return null;
-    }
-
     // Get all albums released by a specific artist.
     public async Task<List<Album>> GetAlbumsByArtistId(int artistId) {
         return null;
@@ -63,7 +60,16 @@ public class LinqExamplesService {
 
     // Get the most recent album by each artist.
     public async Task<List<object>> GetMostRecentAlbumByArtist() {
-        return null;
+        var recentAlbumsByArtist = await _context.Artists
+            .Select(artist => new {
+                Artist = artist.Name,
+                RecentAlbum = artist.Albums
+                                .OrderByDescending(album => album.ReleaseDate)
+                                .FirstOrDefault()
+            }).ToListAsync();
+
+            return recentAlbumsByArtist.Cast<object>().ToList();
+            
     }
 
     // Get the average duration of tracks for each genre.
@@ -96,21 +102,30 @@ public class LinqExamplesService {
 
     // Get all albums along with the total duration of their tracks.
     public async Task<List<object>> GetAlbumsWithTrackDuration() {
-        return null;
+        var albumsWithTrackDuration = await _context.Albums
+            .Select(album => new {
+                AlbumTitle = album.Title,
+                TotalDuration = album.Tracks.Sum(t => t.DurationInSeconds)
+            })
+            .ToListAsync();
+
+            return albumsWithTrackDuration.Cast<object>().ToList();
     }
 
     // Get all genres along with the number of tracks in each genre.
     public async Task<List<object>> GetGenreTrackCounts() {
-        return null;
+        var genreTrackCounts = await _context.Genres
+            .Select(g => new {
+                GenreName = g.Name,
+                TrackCount = g.Tracks.Count
+            })
+            .ToListAsync();
+
+            return genreTrackCounts.Cast<object>().ToList();
     }
 
     // Get all playlists along with the total number of tracks in each playlist.
     public async Task<List<object>> GetPlaylistsWithTrackCount() {
-        return null;
-    }
-
-    // Get the names of all albums and the count of their tracks.
-    public async Task<List<object>> GetAlbumTrackCounts() {
         return null;
     }
 
@@ -131,7 +146,10 @@ public class LinqExamplesService {
 
     // Get the top 3 playlists with the most tracks.
     public async Task<List<Playlist>> GetTopThreePlaylistsWithMostTracks() {
-        return null;
+        return await _context.Playlists
+            .OrderByDescending(playlist => playlist.Tracks.Count)
+            .Take(3)
+            .ToListAsync();
     }
 
     // Get the top 3 playlists with the least tracks.

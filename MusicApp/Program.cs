@@ -26,6 +26,10 @@ _serviceProvider = services.BuildServiceProvider();
 // Retrieve the LinqExamplesSerivce
 _linqExamplesService = _serviceProvider.GetRequiredService<LinqExamplesService>();
 
+var result = await _linqExamplesService.GetGenreTrackCounts();
 
+foreach (var elem in result) {
+    Console.WriteLine(elem.ToString());
+}
 
 
