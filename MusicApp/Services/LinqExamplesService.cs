@@ -101,7 +101,7 @@ public class LinqExamplesService {
             .Select(artist => artist.Albums
                 .OrderByDescending(album => album.ReleaseDate)
                 .FirstOrDefault())
-            .Where(album => album != null) // Filter out any null albums
+            .Where(album => null != album)
             .ToListAsync();
     }
 
