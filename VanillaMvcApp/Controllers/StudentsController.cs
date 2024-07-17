@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,11 @@ namespace VanillaMvcApp.Controllers {
     [ApiController]
     public class StudentsController : ControllerBase {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public StudentsController(ApplicationDbContext context) {
+        public StudentsController(ApplicationDbContext context, IMapper mapper) {
             _context = context;
+            _mapper = mapper;
         }
         
         // api/students
@@ -26,20 +29,24 @@ namespace VanillaMvcApp.Controllers {
                 .Include(s => s.Courses)
                     .ThenInclude(c => c.Department)
                 .ToListAsync();
+
+            var studentDtos = students
+                .Select(s => _mapper.Map<StudentDto>(s))
+                .ToList();
            
             // Fill DTOs
-            var studentDtos = students.Select(s => new StudentDto {
-                Id = s.Id,
-                FirstName = s.FirstName,
-                LastName = s.LastName,
-                JoiningDate = s.JoiningDate,
-                Courses = s.Courses.Select(c => new CourseDto {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Instructor = c.Instructor,
-                    Department = c.Department,
-                }).ToList()
-            } ).ToList();
+            // var studentDtos = students.Select(s => new StudentDto {
+            //     Id = s.Id,
+            //     FirstName = s.FirstName,
+            //     LastName = s.LastName,
+            //     JoiningDate = s.JoiningDate,
+            //     Courses = s.Courses.Select(c => new CourseDto {
+            //         Id = c.Id,
+            //         Name = c.Name,
+            //         Instructor = c.Instructor,
+            //         Department = c.Department,
+            //     }).ToList()
+            // } ).ToList();
 
             return Ok(studentDtos);
         }
