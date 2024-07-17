@@ -26,7 +26,7 @@ namespace VanillaMvcApp.Controllers {
                 .Include(s => s.Courses)
                     .ThenInclude(c => c.Department)
                 .ToListAsync();
-            
+           
             // Fill DTOs
             var studentDtos = students.Select(s => new StudentDto {
                 Id = s.Id,
